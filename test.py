@@ -3,6 +3,21 @@ import numpy as np
 #create network architecture
 L = 3
 n = [2, 3, 3, 1]
+
+#ask for size
+#L = int(input("Enter number of layers:"))
+#n = []
+for i in range(L+1):
+  if i == L+1:
+    break
+  #n.append(int(input(f"Enter the number of nodes in Layer {i}: ")))
+  i+=1
+print(n)
+
+  
+#ask for nodes inputed as numbers 
+
+
 #print("layer 0 / input layer size", n[0])
 #print("layer 1 size", n[1])
 #print("layer 2 size", n[2])
@@ -15,6 +30,21 @@ W3 = np.random.randn(n[3], n[2])
 b1 = np.random.randn(n[1], 1)
 b2 = np.random.randn(n[2], 1)
 b3 = np.random.randn(n[3], 1)
+
+# assign biases and weights for any l layer
+W = []
+l = len(n)
+for l in range(1,L+1):
+  W.append(np.random.rand(n[l], n[l-1]))  # random weights matrix
+  print(f"Layer {l} weights:\n", W[-1])
+
+b = []
+for l in range(1,L+1):
+  b.append(np.random.randn(n[l],1))
+  #print(b)
+  
+
+#initialize weights and biases for each of the created nodes
 
 #print("Weights for layer 1 shape:", W1.shape)
 #print("Weights for layer 2 shape:", W2.shape)
@@ -219,8 +249,8 @@ dC_dW1, dC_db1 = backprop_layer_1(
 
 def train():
    global W3, W2, W1, b3, b2 ,b1
-   epochs = 1000000
-   alpha = 0.001
+   epochs = 1
+   alpha = 0.0001
    costs = []
 
    for e in range(epochs):
@@ -263,7 +293,7 @@ def train():
       b2 = b2 - (alpha * dC_db2)
       b1 = b1 - (alpha * dC_db1)
 
-      if e % 1000000 == 0:
+      if e % 100000 == 0:
          print(f"epoch {e}: cost = {error:4f}")
    return costs
 
